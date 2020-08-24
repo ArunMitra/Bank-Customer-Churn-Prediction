@@ -12,17 +12,17 @@ From established enterprises to start-ups, good models for customer churn predic
 
 Data is from an anonymized global bank with 10,000 labelled data points and 12 features.
 
-- customer_id, unused variable.
-- credit_score, used as input.
-- country, used as input.
-- gender, used as input.
-- age, used as input.
-- tenure, used as input.
-- balance, used as input.
-- products_number, used as input.
-- credit_card, used as input.
-- active_member, used as input.
-- estimated_salary, used as input.
+- customer_id
+- credit_score
+- country
+- gender
+- age
+- tenure
+- balance
+- products_number
+- credit_card
+- active_member
+- estimated_salary
 - churn, used as the target.
 
 Several different churn prediction models are examined, including:
