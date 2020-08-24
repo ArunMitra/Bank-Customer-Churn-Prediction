@@ -10,7 +10,7 @@ From established enterprises to start-ups, good models for customer churn predic
 - Target customer retention efforts and costs more effectively
 - Find customers for whom existing marketing efforts have become ineffective
 
-Data is from an anonymized global bank with 10,000 labelled data points and 12 features.
+Data is from an anonymized global bank with ~10,000 labelled data points and 12 features.
 
 - customer_id
 - credit_score
