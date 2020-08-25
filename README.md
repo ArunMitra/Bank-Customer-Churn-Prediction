@@ -28,7 +28,6 @@ Data is from an anonymized global bank with ~10,000 labelled data points with 12
 Several different churn prediction models are examined, including:
 
 - Logistic Regression
-- Decistion Tree Classifier
 - Random Forest Classifier
 - Gradient Boosted Classifier
 - Multi-Layer Perceptrons
