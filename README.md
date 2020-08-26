@@ -1,6 +1,6 @@
 # Bank-Customer-Churn-Prediction
 
-## Prediciting Customer Churn for a Global Bank
+## Prediciting Customer Churn for a European Bank
 
 
 From established enterprises to start-ups, good models for customer churn prediction are a vital necessity to:
@@ -27,7 +27,7 @@ Data is from an anonymized global bank with ~10,000 labelled data points with 12
 
 Several different churn prediction models are examined, including:
 
-- Decistion Tree Classifier
+- Logistic Regression
 - Random Forest Classifier
 - Gradient Boosted Classifier
 - Multi-Layer Perceptrons
