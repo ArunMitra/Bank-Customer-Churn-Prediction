@@ -1,6 +1,6 @@
 # Bank-Customer-Churn-Prediction
 
-## Prediciting Customer Churn for a European Bank
+## Prediciting Customer Churn for a European Retail Bank
 
 
 From established enterprises to start-ups, good models for customer churn prediction are a vital necessity to:
