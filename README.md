@@ -37,7 +37,7 @@ From established enterprises to start-ups, good models for customer churn predic
 ## The Goals of this Project:
 
 - Implement an optimal supervised machine learning model (or a pipeline of an ensemble of models) to best predict customer churn
-- Derive a Profit Curve to understand the kind of budget that would be justifiable to craft a retention program
+- Derive a Profit Curve to understand the kind of budget that would be justifiable to execute a retention program
 
 ## The Process
 
@@ -46,7 +46,7 @@ From established enterprises to start-ups, good models for customer churn predic
 - Score: Set a metric to evaluate the models
 - Base model: Iterate through various model options to find the best base model
 - Tune Model: Gridsearch for the best hyperparameters
-- Profit Curve: Plug in cost-benefit numbers to find optimal campaign budgets
+- Profit Curve: Plug in cost-benefit numbers to find optimal retention program budgets
 
 ## The Data
 
@@ -80,29 +80,30 @@ From established enterprises to start-ups, good models for customer churn predic
 
 ## Model Scoring
 
-Recall: is the metric we are most interested in because false negatives (not finding churners) is what we most want to minimize.
+Recall: is the metric we are most interested in because false negatives (not finding churners) is what we most want to minimize
 Precision: is also interesting
 Accuracy: should not be too low
 
 ## Base Model
 
-- Started working with 3 options:
+- Started with 3 options:
   - Logistic Regression
   - Random Forest Classifier
   - Gradient Boosting Classifier
 - First results:
   - Recall Scores were poor for all the models:
   - Then balanced the classes using:
-    - Undersamplig of the majority class
+    - Undersampling of the majority class
     - Random oversampling of the minority class (with replacement)
-    - Synthetic Minoorty Class Oversampling (SMOTE)
+    - Synthetic Minority Class Oversampling Technique(SMOTE)
     - A combination of Undersampling and SMOTE
     
-    Detail results for all three models are to be found in the jupyter notebook at /Notebooks folder in this repo, and are summarized in the slide presentation in the /Presentations folder in this repo
-- Following the above the GradientBoosting Model with random minority class oversampling was chosen as the base model (based on consistently best Recall scores)
-- A check on whether the model would improve after dropping least important features based on feature importances was done, but did not improve scores.
+    Detail results for each of these techniques for all three models are to be found in the jupyter notebook in the /Notebooks folder in this repo, and are summarized in the slide presentation in the /Presentations folder in this repo
+- Following the above, the GradientBoosting Model with random minority class oversampling was chosen as the base model (based on consistently best Recall scores)
+- A check on whether the model would improve after dropping least important features based on feature importances was done, but did not improve scores
 
 ## Tuning the base model to find the best model
+
 - Several rounds of GridSearch with various parametrs (detailed in the jupyter notebook to be found in the folder /Notebooks in this repo) were done but Recall score could not be improved)
   - Results for GradientBoostingClassifier
     - Gridsearched best model Recall: 0.709
@@ -112,18 +113,20 @@ Accuracy: should not be too low
 ## Profit Curve
 
 Assumptions:
-- A customer who leaves the bank will result in average annual revenue loss of $1000 
-  - Retail Lending Interest Rate: 1.80%
+
+- A customer who leaves the bank will result in average annual revenue loss of $1,000 ... this was based on:
+  - Retail Lending Interest Rate: 1.80% (Source: European Central Bank 2019)
   - Retail Deposit Interest Rate: 0.37% (Source: European Central Bank 2019)
   - Average balance/customer (in sample): $76,485
   - Average earning/customer (in sample): $76,486 * (0.18 - 0.037) =  $1,094
   - Cross-validated with Annual Report of JP Morgan Chase from 2011 which had = $912 (Source: http://investor.shareholder.com/jpmorganchase/annual.cfm)
 
 - $200 per likely-to-churn-customer, which could pay for:
-  - Rate reductions
-  - Or a birthday credit from the bank
-  - Or individual outreach by customer service
-  - Or a glossy brochure
+  - Fee reductions
+  - Better savings interest rates
+  - A birthday credit from the bank
+  - Individual outreach by customer service or email
+  - Glossy brochure or other token gifts
   - Etc.
 
 - Retention Program is 100% effective
@@ -135,6 +138,6 @@ The findings were that, with a $200 per customer retention program
 
 ## Next Steps
 - Try Neural Network models to see if Recall can be improved
-- All customers are not the same, consider more retention program spending on dollars High-Value vs Low-Value customers
-- Use Uplift Models to skew the retention program spend towards customers that are predicted to be more persuadalb
+- All customers are not the same, consider more retention program spending on High-Value vs Low-Value customers
+- Use Uplift Models to skew the retention program spend towards customers that are predicted to be more persuadable
 - Explore the effects on the Profit Curve for various levels of retention program costs
