@@ -74,7 +74,7 @@ From established enterprises to start-ups, good models for customer churn predic
 
 - Overall churn percentage : 20.37%
 - A balanced, well-crafted sample
-- Bar charts, histograms and scatter matrix plots of various aspects of the data are to be fould in the jupyter notebook in the folder /Notebooks
+- Bar charts, histograms and scatter matrix plots of various aspects of the data are to be fould in the jupyter notebook in the folder /Notebook
 - No obvious correlations between features was observed
 - Looking at churn vs. individual features, customer age, balance and number of products a customer uses had some clear differences in distributtion between churners and non-churners. All all other features no difference in distribution was observed 
 
@@ -98,13 +98,13 @@ Accuracy: should not be too low
     - Synthetic Minority Class Oversampling Technique(SMOTE)
     - A combination of Undersampling and SMOTE
     
-    Detail results for each of these techniques for all three models are to be found in the jupyter notebook in the /Notebooks folder in this repo, and are summarized in the slide presentation in the /Presentations folder in this repo
+    Detail results for each of these techniques for all three models are to be found in the jupyter notebook in the /Notebook folder in this repo, and are summarized in the slide presentation in the /Presentation folder in this repo
 - Following the above, the GradientBoosting Model with random minority class oversampling was chosen as the base model (based on consistently best Recall scores)
 - A check on whether the model would improve after dropping least important features based on feature importances was done, but did not improve scores
 
 ## Tuning the base model to find the best model
 
-- Several rounds of GridSearch with various parametrs (detailed in the jupyter notebook to be found in the folder /Notebooks in this repo) were done but Recall score could not be improved)
+- Several rounds of GridSearch with various parametrs (detailed in the jupyter notebook to be found in the folder /Notebook in this repo) were done but Recall score could not be improved)
   - Results for GradientBoostingClassifier
     - Gridsearched best model Recall: 0.709
     - Base model Recall: 0.748
