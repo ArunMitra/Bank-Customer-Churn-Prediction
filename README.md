@@ -30,4 +30,30 @@ Several different churn prediction models are examined, including:
 - Logistic Regression
 - Random Forest Classifier
 - Gradient Boosted Classifier
-- Multi-Layer Perceptrons
+
+## The problem
+
+- For all B2C businesses, including retail banks
+  Customer lifetime value is key
+  Loyalty is everything!
+
+- Average churn for retail banks is 20% to 25% (Source:https://www.qualtrics.com/blog/customer-churn-banking/)
+ 
+- Lost revenue from churned ex-customers is very hard to replace
+
+## What can be done?
+
+- Identify likely churners
+- Launch targeted retention campaigns
+  -- Get frequent feedback
+  -- Improve customer service
+  -- Improve digital self-service 
+  -- Reduce fees & rates
+  -- Increase savings interest rates
+  -- Offer a wider variety of financial products
+
+All of the above cost a varying amount of $$$$. How much should we spend? 
+We need a Profit Curve!
+
+
+
