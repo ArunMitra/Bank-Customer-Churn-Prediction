@@ -30,9 +30,9 @@ From established enterprises to start-ups, good models for customer churn predic
   - Increase savings interest rates
   - Offer a wider variety of financial products
 
-All of the above cost a varying amount of $$$$. How much should we spend? 
+  All of the above cost a varying amount of $$$$. How much should we spend? 
 
-#### We need a Profit Curve! ####
+  #### We need a Profit Curve! ####
 
 ## The Goals of this Project:
 
@@ -105,8 +105,8 @@ Accuracy: should not be too low
 ## Tuning the base model to find the best model
 - Several rounds of GridSearch with various parametrs (detailed in the jupyter notebook to be found in the folder /Notebooks in this repo) were done but Recall score could not be improved)
   - Results for GradientBoostingClassifier
-    - Gridsearched model Recall: 0.709
-    -      Default model Recall: 0.748
+    - Gridsearched best model Recall: 0.709
+    - Base model Recall: 0.748
 - The base model was thus adopted as the best model to proceed with
 
 ## Profit Curve
