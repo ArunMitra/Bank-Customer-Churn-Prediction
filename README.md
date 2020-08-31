@@ -12,8 +12,8 @@ From established enterprises to start-ups, good models for customer churn predic
 ## The problem
 
 - For all B2C businesses, including retail banks
-  Customer lifetime value is key
-  Loyalty is everything!
+  - Customer lifetime value is key
+  - Loyalty is everything!
 
 - Average churn for retail banks is 20% to 25% (Source:https://www.qualtrics.com/blog/customer-churn-banking/)
  
