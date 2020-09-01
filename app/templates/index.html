@@ -1,0 +1,85 @@
+<head>
+    <title>Churn Classifier</title>
+    <script src="{{ url_for('static', filename='brython.js')}}"></script>
+    <script src="{{ url_for('static', filename='brython_stdlib.js')}}"></script>
+
+</head>
+<body onload="brython()">
+    Please enter the customer's features:<br/>
+
+    <input type="text" id="credit_score"> What is their credit score?</input><br/>
+    <input type="text" id="gender"> What is their gender (Male=1, Female=0)?</input><br/>
+    <input type="text" id="age"> How old are they (in years)?</input><br/>
+    <input type="text" id="tenure"> What is their tenure (in years)?</input><br/>
+    <input type="text" id="balance"> What is their balance (in USD)?</input><br/>
+    <input type="text" id="products_number"> How many products do they use?</input><br/>
+    <input type="text" id="credit_card"> Do they use a credit card (Yes=1, No=0)?</input><br/>
+    <input type="text" id="active_member"> Are they an active member (Yes=1, No=-0)?</input><br/>
+    <input type="text" id="estimated_salary"> What is their expected salary (in USD)?</input><br/>
+    <input type="text" id="country_France"> Are they based in France (Yes=1, No=0)?</input><br/>
+    <input type="text" id="country_Germany"> Are they based in Germany (Yes=1, No=0)?</input><br/>
+
+    <button type="button" id="predict">Predict Churn Probability</button>
+
+    Predicted probabilities:
+    <table>
+        <tr><th>Churn?</th><th>Probability</th></tr>
+        <tr><td>Probability that this customer will churn</td><td><span id="setosa"></span></td></tr>
+        <tr><td>Probability that this customer wont churn</td><td><span id="versicolor"></span></td></tr>
+        <tr><td>iris virginica</td><td><span id="virginica"></span></td></tr>
+    </table>
+
+    <script type="text/python">
+        from browser import document, ajax
+        import json
+
+        def get_features():
+            credit_score = int(document['credit_score'].value)
+            gender = int(document['gender'].value)
+            age = int(document['age'].value)
+            tenure = int(document['tenure'].value)
+            balance = float(document['balance'].value)
+            products_number = int(document['products_number'].value)
+            credit_card = int(document['credit_card'].value)
+            active_member = int(document['active_member'].value)
+            estimated_salary = float(document['estimated_salary'].value)
+            country_France = int(document['country_France'].value)
+            country_Germany = int(document['country_Germany'].value)
+
+            return {'credit_score': credit_score,
+                    'gender': gender,
+                    'age': age,
+                    'tenure': tenure,
+                    'balance': balance,
+                    'products_number': products_number,
+                    'credit_card': credit_card,
+                    'active_member': active_member,
+                    'estimated_salary': estimated_salary,
+                    'country_France': country_France,
+                    'country_Germany': country_Germany}
+
+        def send_features_json(features):
+            req = ajax.Ajax()
+            req.bind('complete', display_prediction)
+            req.open('POST',
+                     '/predict',
+                     True)
+            req.set_header('Content-Type', 'application/json')
+            req.send(json.dumps(features))
+
+
+        def display_prediction(req):
+            result = json.loads(req.text)
+            # note the syntax for setting the child text of an element
+            document['WillChurn'].html = result['WillChurn']
+            document['WontChurn'].html = result['WontChurn']
+
+        def click(event):
+            features = get_features()
+            send_features_json(features)
+
+        document['predict'].bind('click', click)
+
+        </script>
+
+</body>

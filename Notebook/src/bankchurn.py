@@ -23,11 +23,12 @@ from imblearn.pipeline import Pipeline
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
 
+#### Helper function: prepare_and_split_data( )
+
 def prepare_and_split_data(file_name_with_path):
     ''' Prepares data and splits it
         Parameters:
             file_name_with_path : string
-
         Returns:
             Full_X       : 2D pd dataframe containing the full cleaned data features
             X_train      : 2D pd dataframe containing training data features
@@ -37,7 +38,7 @@ def prepare_and_split_data(file_name_with_path):
             y_final_test : 1D np array containing test labels
     '''
     # read in the data
-    df = pd.read_csv('../data/bank_churn.csv', ';')
+    df = pd.read_csv(file_name_with_path, ';')
 
     # drop the 'customer_id', as it carries no signal
     df = df.drop(['customer_id'], axis=1)
@@ -55,6 +56,33 @@ def prepare_and_split_data(file_name_with_path):
     # Split the data
     X_train, X_final_test, y_train, y_final_test = train_test_split(Full_X, Full_y, test_size=0.10, train_size=0.90, random_state=13)
     return Full_X, X_train, X_final_test, Full_y, y_train, y_final_test
+
+#### Helper function: get_balanced_data( )
+
+def get_balanced_data(X_train, y_train):
+    ''' Prepares data and splits it
+        Parameters:
+            X_train      : 2D pd dataframe containing training data features
+            y_train      : 1D np array containing training labels
+
+        Returns:
+            X_train_balanced : 2D pd dataframe containing balanced training data features
+            y_train_balanced : 1D np array containing balanced training labels
+    '''
+    # First put X_train and y_train together
+    Xy_temp = pd.concat([X_train, y_train], axis=1)
+    # Take all samples that are in the majority class
+    Xy_temp_majority = Xy_temp[Xy_temp['churn'] == 0]
+    # Take an equal number of samples from the minority class
+    Xy_temp_minority = Xy_temp[Xy_temp['churn'] == 1] \
+                        .sample(Xy_temp_majority.shape[0], replace=True)
+    # then append
+    Xy_temp_balanced = Xy_temp_majority.append(Xy_temp_minority)
+
+    # Now pull out y_train_fold data
+    y_train_balanced = Xy_temp_balanced['churn']
+    # and drop the label to get the X_train_fold data
+    X_train_balanced = Xy_temp_balanced.drop(['churn'], axis=1)
 
 #### Helper function: run_models( )
 
@@ -253,6 +281,37 @@ def display_default_and_gsearch_model_results(model_default, model_best,
     recall = recall_score(y_test, y_test_pred)
     print("     Default model Recall: {:0.3f}".format(recall))
 
+#### Helper function: get_balanced_data( )
+
+def get_balanced_data(X_train, y_train):
+
+    ''' Takes the unbalanced training data and oversamples the minority class and returns balanced data
+        Parameters:
+            X_train : 2d pd Dataframe with training features data
+            y_train : 1d numpy array with training label data
+        Return:
+            X_train_balanced : 2D pd DataFrame with oversampled training feature data
+            y_train_balanced : 1D np array with oversampled training label data
+    '''
+    # Setup the data
+
+    # First put X_train and y_train together
+    Xy_temp = pd.concat([X_train, y_train], axis=1)
+    # Take all samples that are in the majority class
+    Xy_temp_majority = Xy_temp[Xy_temp['churn'] == 0]
+    # Take an equal number of samples from the minority class
+    Xy_temp_minority = Xy_temp[Xy_temp['churn'] == 1] \
+                        .sample(Xy_temp_majority.shape[0], replace=True)
+    # then append
+    Xy_temp_balanced = Xy_temp_majority.append(Xy_temp_minority)
+
+    # Now pull out y_train_balanced data
+    y_train_balanced = Xy_temp_balanced['churn']
+    # and drop the label to get the X_train_balanced data
+    X_train_balanced = Xy_temp_balanced.drop(['churn'], axis=1)
+
+    return X_train_balanced, y_train_balanced
+
 #### Helper function: run_models_on_final_test( )
 
 def run_models_on_final_test(model1, model2, X_train, y_train, X_final_test, y_final_test):
@@ -267,26 +326,10 @@ def run_models_on_final_test(model1, model2, X_train, y_train, X_final_test, y_f
             y_final_test : 1d numpy array with final test label data
         Return:
             model  : The model that is better for Recall
-            X_train_balanced : 2D pd DataFrame with oversampled training feature data
-            y_train_balanced : 1D np array with oversampled training label data
             (also prints out scores for the models)
     '''
     # Setup the data
-
-    # First put X_train and y_train together
-    Xy_temp = pd.concat([X_train, y_train], axis=1)
-    # Take all samples that are in the majority class
-    Xy_temp_majority = Xy_temp[Xy_temp['churn'] == 0]
-    # Take an equal number of samples from the minority class
-    Xy_temp_minority = Xy_temp[Xy_temp['churn'] == 1] \
-                        .sample(Xy_temp_majority.shape[0], replace=True)
-    # then append
-    Xy_temp_balanced = Xy_temp_majority.append(Xy_temp_minority)
-
-    # Now pull out y_train_fold data
-    y_train_balanced = Xy_temp_balanced['churn']
-    # and drop the label to get the X_train_fold data
-    X_train_balanced = Xy_temp_balanced.drop(['churn'], axis=1)# data prep
+    X_train_balanced, y_train_balanced = get_balanced_data(X_train, y_train)
 
     # Run the models
 
@@ -322,12 +365,12 @@ def run_models_on_final_test(model1, model2, X_train, y_train, X_final_test, y_f
         print('********************************************')
         print('Best model for Recall: ', model2.__class__.__name__)
         print('********************************************')
-        return model2, X_train_balanced, y_train_balanced
+        return model2
     else:
         print('********************************************')
         print('Best model for Recall: ', model1.__class.__name__)
         print('********************************************')
-        return model1, X_train_balanced, y_train_balanced
+        return model1
 
 #### Helper function: plot_profit_curve( )
 
