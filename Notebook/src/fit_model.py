@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.datasets import load_iris
 import pickle
 from bankchurn import *
@@ -35,4 +35,5 @@ if __name__ == '__main__':
     m = Model()
     m.load_data('../../data/bank_churn.csv')
     m.fit_model()
+
     m.pickle_model('../../model/model.pkl')

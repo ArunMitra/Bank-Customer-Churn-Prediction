@@ -29,7 +29,7 @@ def predict():
                       user_data['country_France'],
                       user_data['country_Germany']]).astype(float).reshape(1, -1)
         probs = model.predict_proba(X)
-
+        print(probs)
         return jsonify({'WillChurn': probs[0][0],
                         'WontChurn': probs[0][1]})
 

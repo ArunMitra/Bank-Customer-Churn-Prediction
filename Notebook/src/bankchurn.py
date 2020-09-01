@@ -84,6 +84,8 @@ def get_balanced_data(X_train, y_train):
     # and drop the label to get the X_train_fold data
     X_train_balanced = Xy_temp_balanced.drop(['churn'], axis=1)
 
+    return X_train_balanced, y_train_balanced
+
 #### Helper function: run_models( )
 
 def run_models(estimator_class, X_train, y_train, n_splits=5, stratified=False, sampling=None):
@@ -283,34 +285,34 @@ def display_default_and_gsearch_model_results(model_default, model_best,
 
 #### Helper function: get_balanced_data( )
 
-def get_balanced_data(X_train, y_train):
+# def get_balanced_data(X_train, y_train):
 
-    ''' Takes the unbalanced training data and oversamples the minority class and returns balanced data
-        Parameters:
-            X_train : 2d pd Dataframe with training features data
-            y_train : 1d numpy array with training label data
-        Return:
-            X_train_balanced : 2D pd DataFrame with oversampled training feature data
-            y_train_balanced : 1D np array with oversampled training label data
-    '''
-    # Setup the data
+#     ''' Takes the unbalanced training data and oversamples the minority class and returns balanced data
+#         Parameters:
+#             X_train : 2d pd Dataframe with training features data
+#             y_train : 1d numpy array with training label data
+#         Return:
+#             X_train_balanced : 2D pd DataFrame with oversampled training feature data
+#             y_train_balanced : 1D np array with oversampled training label data
+#     '''
+#     # Setup the data
 
-    # First put X_train and y_train together
-    Xy_temp = pd.concat([X_train, y_train], axis=1)
-    # Take all samples that are in the majority class
-    Xy_temp_majority = Xy_temp[Xy_temp['churn'] == 0]
-    # Take an equal number of samples from the minority class
-    Xy_temp_minority = Xy_temp[Xy_temp['churn'] == 1] \
-                        .sample(Xy_temp_majority.shape[0], replace=True)
-    # then append
-    Xy_temp_balanced = Xy_temp_majority.append(Xy_temp_minority)
+#     # First put X_train and y_train together
+#     Xy_temp = pd.concat([X_train, y_train], axis=1)
+#     # Take all samples that are in the majority class
+#     Xy_temp_majority = Xy_temp[Xy_temp['churn'] == 0]
+#     # Take an equal number of samples from the minority class
+#     Xy_temp_minority = Xy_temp[Xy_temp['churn'] == 1] \
+#                         .sample(Xy_temp_majority.shape[0], replace=True)
+#     # then append
+#     Xy_temp_balanced = Xy_temp_majority.append(Xy_temp_minority)
 
-    # Now pull out y_train_balanced data
-    y_train_balanced = Xy_temp_balanced['churn']
-    # and drop the label to get the X_train_balanced data
-    X_train_balanced = Xy_temp_balanced.drop(['churn'], axis=1)
+#     # Now pull out y_train_balanced data
+#     y_train_balanced = Xy_temp_balanced['churn']
+#     # and drop the label to get the X_train_balanced data
+#     X_train_balanced = Xy_temp_balanced.drop(['churn'], axis=1)
 
-    return X_train_balanced, y_train_balanced
+#     return X_train_balanced, y_train_balanced
 
 #### Helper function: run_models_on_final_test( )
 
