@@ -23,6 +23,7 @@ from imblearn.pipeline import Pipeline
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
 
+
 #### Helper function: prepare_and_split_data( )
 
 def prepare_and_split_data(file_name_with_path):
@@ -57,6 +58,7 @@ def prepare_and_split_data(file_name_with_path):
     X_train, X_final_test, y_train, y_final_test = train_test_split(Full_X, Full_y, test_size=0.10, train_size=0.90, random_state=13)
     return Full_X, X_train, X_final_test, Full_y, y_train, y_final_test
 
+
 #### Helper function: get_balanced_data( )
 
 def get_balanced_data(X_train, y_train):
@@ -85,6 +87,7 @@ def get_balanced_data(X_train, y_train):
     X_train_balanced = Xy_temp_balanced.drop(['churn'], axis=1)
 
     return X_train_balanced, y_train_balanced
+
 
 #### Helper function: run_models( )
 
@@ -194,6 +197,7 @@ def run_models(estimator_class, X_train, y_train, n_splits=5, stratified=False, 
 
     return (accuracy, precision, recall)
 
+
 #### Helper function: show_model_scores( )
 
 def show_model_scores(estimators, results, n_splits=5, suffix=''):
@@ -232,6 +236,7 @@ def show_model_scores(estimators, results, n_splits=5, suffix=''):
 
     fig.savefig('../Images/ModelScores'+suffix)
 
+
 #### Helper function: gridsearch_with_output( )
 
 def gridsearch_with_output(estimator, parameter_grid, X_train, y_train):
@@ -261,6 +266,7 @@ def gridsearch_with_output(estimator, parameter_grid, X_train, y_train):
                                                 str(vals)))
     return best_params, model_best
 
+
 #### Helper function: display_default_and_gsearch_model_results( )
 
 def display_default_and_gsearch_model_results(model_default, model_best,
@@ -283,36 +289,7 @@ def display_default_and_gsearch_model_results(model_default, model_best,
     recall = recall_score(y_test, y_test_pred)
     print("     Default model Recall: {:0.3f}".format(recall))
 
-#### Helper function: get_balanced_data( )
 
-# def get_balanced_data(X_train, y_train):
-
-#     ''' Takes the unbalanced training data and oversamples the minority class and returns balanced data
-#         Parameters:
-#             X_train : 2d pd Dataframe with training features data
-#             y_train : 1d numpy array with training label data
-#         Return:
-#             X_train_balanced : 2D pd DataFrame with oversampled training feature data
-#             y_train_balanced : 1D np array with oversampled training label data
-#     '''
-#     # Setup the data
-
-#     # First put X_train and y_train together
-#     Xy_temp = pd.concat([X_train, y_train], axis=1)
-#     # Take all samples that are in the majority class
-#     Xy_temp_majority = Xy_temp[Xy_temp['churn'] == 0]
-#     # Take an equal number of samples from the minority class
-#     Xy_temp_minority = Xy_temp[Xy_temp['churn'] == 1] \
-#                         .sample(Xy_temp_majority.shape[0], replace=True)
-#     # then append
-#     Xy_temp_balanced = Xy_temp_majority.append(Xy_temp_minority)
-
-#     # Now pull out y_train_balanced data
-#     y_train_balanced = Xy_temp_balanced['churn']
-#     # and drop the label to get the X_train_balanced data
-#     X_train_balanced = Xy_temp_balanced.drop(['churn'], axis=1)
-
-#     return X_train_balanced, y_train_balanced
 
 #### Helper function: run_models_on_final_test( )
 
@@ -373,6 +350,7 @@ def run_models_on_final_test(model1, model2, X_train, y_train, X_final_test, y_f
         print('Best model for Recall: ', model1.__class.__name__)
         print('********************************************')
         return model1
+
 
 #### Helper function: plot_profit_curve( )
 
